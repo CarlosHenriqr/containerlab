@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Trilha prática de Docker e Kubernetes para Windows." />
+    <title>Container Lab | Docker e Kubernetes no Windows</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>.module{cursor:pointer}.module:hover,.module:focus-visible{background:var(--pale);outline:3px solid var(--blue);outline-offset:-3px}</style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#inicio" aria-label="Container Lab, início"><span class="brand-mark">&gt;_</span> container<span>lab</span></a>
+      <nav aria-label="Navegação principal">
+        <a href="#trilha">Trilha</a>
+        <a href="#laboratorio">Laboratório</a>
+        <a href="#comandos">Comandos</a>
+      </nav>
+      <a class="header-cta" href="#trilha">Começar agora <span aria-hidden="true">→</span></a>
+    </header>
+
+    <main id="inicio">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> CURSO GUIADO PARA WINDOWS</p>
+          <h1>Do seu terminal ao <em>cluster.</em></h1>
+          <p class="hero-text">Aprenda Docker e Kubernetes construindo, executando e publicando uma aplicação de verdade no seu computador.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#trilha">Iniciar a trilha <span aria-hidden="true">→</span></a>
+            <a class="button secondary" href="#preparo">Preparar ambiente</a>
+          </div>
+          <div class="hero-meta">
+            <span>8 semanas</span><span>16 módulos</span><span>100% prático</span>
+          </div>
+        </div>
+        <div class="terminal-card" aria-label="Prévia de terminal com comandos Docker">
+          <div class="terminal-top"><span></span><span></span><span></span><p>PowerShell</p></div>
+          <div class="terminal-body">
+            <p><b>PS</b> C:\projetos\minha-app&gt; <i>docker compose up --build</i></p>
+            <p class="muted">[+] Running 3/3</p>
+            <p class="ok"> ✔ Network minha-app_default Created</p>
+            <p class="ok"> ✔ Container minha-app-db-1 Started</p>
+            <p class="ok"> ✔ Container minha-app-web-1 Started</p>
+            <p><b>PS</b> C:\projetos\minha-app&gt; <span class="cursor"></span></p>
+          </div>
+          <div class="terminal-label">SEU PRIMEIRO STACK LOCAL</div>
+        </div>
+      </section>
+
+      <section class="setup" id="preparo">
+        <div>
+          <p class="eyebrow"><span></span> PONTO DE PARTIDA</p>
+          <h2>Configure uma vez.<br />Construa sempre.</h2>
+        </div>
+        <div class="setup-list">
+          <article><span>01</span><div><h3>WSL 2</h3><p>O ambiente Linux integrado ao Windows.</p></div><a href="https://learn.microsoft.com/windows/wsl/install" target="_blank" rel="noreferrer" aria-label="Abrir instruções de instalação do WSL 2">↗</a></article>
+          <article><span>02</span><div><h3>Docker Desktop</h3><p>Containers e imagens no seu computador.</p></div><a href="https://www.docker.com/products/docker-desktop/" target="_blank" rel="noreferrer" aria-label="Abrir Docker Desktop">↗</a></article>
+          <article><span>03</span><div><h3>kubectl + Kind</h3><p>Seu cluster Kubernetes local para praticar.</p></div><a href="https://kind.sigs.k8s.io/" target="_blank" rel="noreferrer" aria-label="Abrir documentação do Kind">↗</a></article>
+        </div>
+      </section>
+
+      <section class="learning-path" id="trilha">
+        <div class="section-intro">
+          <div><p class="eyebrow"><span></span> TRILHA DE APRENDIZADO</p><h2>Uma sequência que faz sentido.</h2></div>
+          <p>Marque cada módulo ao concluir. Seu progresso fica salvo neste navegador.</p>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-line"><span id="progressLine"></span></div>
+          <p><strong id="progressText">0 de 16</strong> módulos concluídos</p>
+        </div>
+        <div class="filters" role="group" aria-label="Filtrar módulos">
+          <button class="filter active" data-filter="all">Todos <span>16</span></button>
+          <button class="filter" data-filter="docker">Docker <span>7</span></button>
+          <button class="filter" data-filter="kubernetes">Kubernetes <span>9</span></button>
+        </div>
+        <div class="module-grid" id="moduleGrid">
+          <article class="module docker"><label><input type="checkbox" data-module="1" /><span></span></label><p class="module-number">01 · DOCKER</p><h3>Fundamentos de containers</h3><p>Imagens, containers, registries e arquitetura Docker.</p><small>45 min</small></article>
+          <article class="module docker"><label><input type="checkbox" data-module="2" /><span></span></label><p class="module-number">02 · DOCKER</p><h3>Executando containers</h3><p>Portas, logs, terminal e ciclo de vida.</p><small>60 min</small></article>
+          <article class="module docker"><label><input type="checkbox" data-module="3" /><span></span></label><p class="module-number">03 · DOCKER</p><h3>Dockerfile</h3><p>Empacote sua primeira aplicação.</p><small>90 min</small></article>
+          <article class="module docker"><label><input type="checkbox" data-module="4" /><span></span></label><p class="module-number">04 · DOCKER</p><h3>Volumes e dados</h3><p>Persistência, backups e bancos locais.</p><small>75 min</small></article>
+          <article class="module docker"><label><input type="checkbox" data-module="5" /><span></span></label><p class="module-number">05 · DOCKER</p><h3>Redes</h3><p>Comunicação segura entre serviços.</p><small>60 min</small></article>
+          <article class="module docker"><label><input type="checkbox" data-module="6" /><span></span></label><p class="module-number">06 · DOCKER</p><h3>Docker Compose</h3><p>Orquestre sua aplicação local.</p><small>90 min</small></article>
+          <article class="module docker"><label><input type="checkbox" data-module="7" /><span></span></label><p class="module-number">07 · DOCKER</p><h3>Boas práticas</h3><p>Imagens menores, segurança e produção.</p><small>60 min</small></article>
+          <article class="module kubernetes"><label><input type="checkbox" data-module="8" /><span></span></label><p class="module-number">08 · KUBERNETES</p><h3>Seu primeiro cluster</h3><p>Kind, kubectl e os componentes do cluster.</p><small>75 min</small></article>
+          <article class="module kubernetes"><label><input type="checkbox" data-module="9" /><span></span></label><p class="module-number">09 · KUBERNETES</p><h3>Pods e Deployments</h3><p>Declarando e replicando aplicações.</p><small>90 min</small></article>
+          <article class="module kubernetes"><label><input type="checkbox" data-module="10" /><span></span></label><p class="module-number">10 · KUBERNETES</p><h3>Services</h3><p>Rede, descoberta e acesso à aplicação.</p><small>60 min</small></article>
+          <article class="module kubernetes"><label><input type="checkbox" data-module="11" /><span></span></label><p class="module-number">11 · KUBERNETES</p><h3>Config e secrets</h3><p>ConfigMaps, Secrets e variáveis de ambiente.</p><small>60 min</small></article>
+          <article class="module kubernetes"><label><input type="checkbox" data-module="12" /><span></span></label><p class="module-number">12 · KUBERNETES</p><h3>Escala e rollout</h3><p>Atualizações seguras e reversão.</p><small>75 min</small></article>
+          <article class="module kubernetes"><label><input type="checkbox" data-module="13" /><span></span></label><p class="module-number">13 · KUBERNETES</p><h3>Saúde e recursos</h3><p>Probes, limites e diagnóstico.</p><small>90 min</small></article>
+          <article class="module kubernetes"><label><input type="checkbox" data-module="14" /><span></span></label><p class="module-number">14 · KUBERNETES</p><h3>Ingress</h3><p>Rotas, domínios e publicação local.</p><small>75 min</small></article>
+          <article class="module kubernetes"><label><input type="checkbox" data-module="15" /><span></span></label><p class="module-number">15 · KUBERNETES</p><h3>Persistência</h3><p>Volumes, claims e StatefulSets.</p><small>90 min</small></article>
+          <article class="module kubernetes"><label><input type="checkbox" data-module="16" /><span></span></label><p class="module-number">16 · KUBERNETES</p><h3>Helm e projeto final</h3><p>Pacotes, segurança e entrega completa.</p><small>120 min</small></article>
+        </div>
+      </section>
+
+      <section class="lab" id="laboratorio">
+        <div class="lab-copy"><p class="eyebrow"><span></span> LABORATÓRIO DA SEMANA</p><h2>Coloque uma aplicação no ar.</h2><p>Seu primeiro desafio combina uma API, PostgreSQL, volume persistente e Docker Compose. É a ponte entre teoria e prática real.</p><a class="text-link" href="#comandos">Ver roteiro do laboratório <span>→</span></a></div>
+        <div class="lab-checklist"><p>CHECKLIST DO DESAFIO</p><label><input type="checkbox" data-task="api" /><span></span>Criar uma API Node.js</label><label><input type="checkbox" data-task="dockerfile" /><span></span>Escrever um Dockerfile</label><label><input type="checkbox" data-task="database" /><span></span>Adicionar PostgreSQL</label><label><input type="checkbox" data-task="compose" /><span></span>Executar com Compose</label></div>
+      </section>
+
+      <section class="commands" id="comandos">
+        <div class="section-intro"><div><p class="eyebrow"><span></span> COLA RÁPIDA</p><h2>Comandos para ter por perto.</h2></div><p>Use no PowerShell. Clique para copiar.</p></div>
+        <div class="command-list">
+          <button class="command" data-copy="wsl --install"><span>Instalar WSL 2</span><code>wsl --install</code><b>copiar</b></button>
+          <button class="command" data-copy="docker compose up --build"><span>Subir seu projeto</span><code>docker compose up --build</code><b>copiar</b></button>
+          <button class="command" data-copy="kind create cluster --name estudo"><span>Criar cluster local</span><code>kind create cluster --name estudo</code><b>copiar</b></button>
+          <button class="command" data-copy="kubectl get pods"><span>Ver seus pods</span><code>kubectl get pods</code><b>copiar</b></button>
+        </div>
+      </section>
+    </main>
+    <footer><a class="brand" href="#inicio"><span class="brand-mark">&gt;_</span> container<span>lab</span></a><p>Docker e Kubernetes, passo a passo, no Windows.</p><a href="#inicio">Voltar ao topo ↑</a></footer>
+    <script src="app.js"></script>
+  </body>
+</html>

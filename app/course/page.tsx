@@ -27,6 +27,7 @@ export default function CoursePage() {
             </SignUpButton>
           </Show>
           <Show when="signed-in">
+            <a className="course-dashboard" href="/dashboard">Meu progresso</a>
             <UserButton />
           </Show>
         </div>

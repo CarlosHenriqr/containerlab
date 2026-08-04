@@ -51,7 +51,7 @@ document.querySelectorAll('.module').forEach(card => {
   card.setAttribute('aria-label', `Abrir aula: ${card.querySelector('h3').textContent}`);
   const openLesson = event => {
     if (event.target.closest('label, input')) return;
-    location.href = `module.html?module=${card.querySelector('[data-module]').dataset.module}`;
+    location.href = `module.html?module=${card.querySelector('[data-module]').dataset.module}&embedded=1`;
   };
   card.addEventListener('click', openLesson);
   card.addEventListener('keydown', event => { if (event.key === 'Enter') openLesson(event); });

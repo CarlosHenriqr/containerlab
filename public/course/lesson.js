@@ -1,3 +1,10 @@
+if (new URLSearchParams(location.search).has('embedded')) {
+  document.body.classList.add('embedded');
+  const embeddedStyle = document.createElement('style');
+  embeddedStyle.textContent = '.embedded .site-header{display:none}';
+  document.head.append(embeddedStyle);
+}
+
 window.addEventListener('load', () => {
   const moduleId = Number(new URLSearchParams(location.search).get('module')) || 1;
   const completeButton = document.querySelector('#complete');

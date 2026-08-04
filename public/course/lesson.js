@@ -1,4 +1,4 @@
-if (new URLSearchParams(location.search).has('embedded')) {
+if (new URLSearchParams(location.search).has('embedded') || window.self !== window.top) {
   document.body.classList.add('embedded');
   const embeddedStyle = document.createElement('style');
   embeddedStyle.textContent = '.embedded .site-header{display:none}';

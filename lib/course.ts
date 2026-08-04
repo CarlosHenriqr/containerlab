@@ -34,3 +34,12 @@ export const courseModules: CourseModule[] = [
 ];
 
 export const getCourseModule = (id: number) => courseModules.find((item) => item.id === id);
+
+export const moduleLessons: Record<number, number[]> = {
+  1: [1, 2],
+  2: [3, 4, 5],
+  3: [6, 7],
+  4: [8, 9],
+  5: [10, 11, 12, 13],
+  6: [14, 15, 16],
+};

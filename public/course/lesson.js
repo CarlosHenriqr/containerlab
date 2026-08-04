@@ -1,3 +1,37 @@
+window.addEventListener('load', () => {
+  const moduleId = Number(new URLSearchParams(location.search).get('module')) || 1;
+  const completeButton = document.querySelector('#complete');
+  const status = document.querySelector('.lesson-status');
+  const statusText = document.querySelector('#statusText');
+
+  const paint = done => {
+    status.classList.toggle('done', done);
+    statusText.textContent = done ? 'Concluída' : 'Ainda não concluída';
+    completeButton.textContent = done ? 'Concluída ✓' : 'Marcar como concluída ✓';
+  };
+
+  const savedHandler = completeButton.onclick;
+  completeButton.onclick = () => {
+    savedHandler();
+    void fetch('/api/progress', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ moduleId, completed: true, practiceComplete: false }),
+    }).catch(() => {});
+  };
+
+  void fetch('/api/progress')
+    .then(response => response.ok ? response.json() : null)
+    .then(data => {
+      if (!data) return;
+      const record = data.progress.find(item => item.moduleId === moduleId);
+      if (!record?.completed) return;
+      localStorage.setItem(`containerlab-module-${moduleId}`, 'true');
+      paint(true);
+    })
+    .catch(() => {});
+});
+
 const lessons = [
   ['Fundamentos de containers','Entenda containers e rode uma aplicação de teste.','Docker cria caixas isoladas chamadas containers. Imagem é o molde; container é o molde em execução.','docker --version|docker run hello-world','Você verá a mensagem “Hello from Docker!”.','Se “docker” não for reconhecido, abra Docker Desktop e espere ele iniciar.'],
   ['Executando containers','Coloque um servidor web no ar e abra-o no navegador.','Portas criam uma passagem entre o Windows e um container.','docker run -d --name meu-nginx -p 8080:80 nginx|docker ps|docker stop meu-nginx','A página do Nginx abre em http://localhost:8080.','Se 8080 estiver ocupada, use 8081:80 e abra localhost:8081.'],

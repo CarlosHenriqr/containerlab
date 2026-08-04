@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
+import "./auth.css";
 
 export const metadata: Metadata = {
   title: "Container Lab | Docker e Kubernetes no Windows",

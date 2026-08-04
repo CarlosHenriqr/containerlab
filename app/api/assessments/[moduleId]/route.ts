@@ -25,6 +25,8 @@ export async function GET(_: Request, { params }: { params: Promise<{ moduleId: 
   if (!module) return NextResponse.json({ error: "Module not found" }, { status: 404 });
   const missing = await missingLessons(userId, module.id);
   if (missing.length) return NextResponse.json({ locked: true, missingLessons: missing }, { status: 423 });
+  const [moduleRecord] = await getDb().select({ practiceComplete: moduleStatus.practiceComplete }).from(moduleStatus).where(and(eq(moduleStatus.userId, userId), eq(moduleStatus.moduleId, module.id)));
+  if (!moduleRecord?.practiceComplete) return NextResponse.json({ locked: true, needsPractice: true }, { status: 423 });
 
   const attempts = await getDb().select({ score: assessmentAttempts.score, createdAt: assessmentAttempts.createdAt })
     .from(assessmentAttempts).where(and(eq(assessmentAttempts.userId, userId), eq(assessmentAttempts.moduleId, module.id))).orderBy(desc(assessmentAttempts.createdAt));
@@ -39,6 +41,8 @@ export async function POST(request: Request, { params }: { params: Promise<{ mod
   if (!module) return NextResponse.json({ error: "Module not found" }, { status: 404 });
   const missing = await missingLessons(userId, module.id);
   if (missing.length) return NextResponse.json({ locked: true, missingLessons: missing }, { status: 423 });
+  const [moduleRecord] = await getDb().select({ practiceComplete: moduleStatus.practiceComplete }).from(moduleStatus).where(and(eq(moduleStatus.userId, userId), eq(moduleStatus.moduleId, module.id)));
+  if (!moduleRecord?.practiceComplete) return NextResponse.json({ locked: true, needsPractice: true }, { status: 423 });
   const body = await request.json().catch(() => null) as { answers?: unknown } | null;
   const answers = body?.answers;
   if (!Array.isArray(answers) || answers.length !== module.questions.length || answers.some((answer): answer is number => typeof answer !== "number" || !Number.isInteger(answer) || answer < 0 || answer > 3)) {

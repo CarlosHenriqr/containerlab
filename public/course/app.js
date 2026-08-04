@@ -7,6 +7,10 @@ function syncProgress() {
   const complete = modules.filter(item => item.checked).length;
   progressText.textContent = `${complete} de ${modules.length}`;
   progressLine.style.width = `${(complete / modules.length) * 100}%`;
+  document.querySelector('#accountProgress').textContent = `${Math.round((complete / modules.length) * 100)}%`;
+  document.querySelectorAll('[data-badge]').forEach(badge => {
+    badge.classList.toggle('earned', complete >= Number(badge.dataset.badge) * 3);
+  });
   modules.forEach(item => localStorage.setItem(`containerlab-module-${item.dataset.module}`, item.checked));
 }
 

@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
-    <style>.module{cursor:pointer}.module:hover,.module:focus-visible{background:var(--pale);outline:3px solid var(--blue);outline-offset:-3px}</style>
+    <style>.module{cursor:pointer}.module:hover,.module:focus-visible{background:var(--pale);outline:3px solid var(--blue);outline-offset:-3px}.account-links{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:800}.account-cta{background:var(--blue);color:#fff;padding:10px 13px;border-radius:9px}.account-panel{padding:55px max(5vw,28px);background:#e8f2ff;display:flex;justify-content:space-between;gap:30px;align-items:center}.account-panel h2{font-size:clamp(28px,4vw,45px);letter-spacing:-2px;margin:0 0 10px}.account-panel p:not(.eyebrow){color:var(--muted);margin:0}.badge-row{display:flex;gap:9px;flex-wrap:wrap}.badge{display:grid;place-items:center;width:45px;height:45px;border-radius:50%;background:#c9d9ed;color:#758ba4;font:700 12px "DM Mono",monospace}.badge.earned{background:var(--blue);color:#fff}@media(max-width:700px){.account-panel{display:block}.badge-row{margin-top:24px}.site-header nav{display:none}}</style>
   </head>
   <body>
     <header class="site-header">
@@ -19,7 +19,7 @@
         <a href="#laboratorio">Laboratório</a>
         <a href="#comandos">Comandos</a>
       </nav>
-      <a class="header-cta" href="#trilha">Começar agora <span aria-hidden="true">→</span></a>
+      <div class="account-links"><a href="/sign-in">Entrar</a><a class="account-cta" href="/sign-up">Criar conta</a></div>
     </header>
 
     <main id="inicio">
@@ -48,6 +48,11 @@
           </div>
           <div class="terminal-label">SEU PRIMEIRO STACK LOCAL</div>
         </div>
+      </section>
+
+      <section class="account-panel" id="perfil">
+        <div><p class="eyebrow"><span></span> SEU ESPAÇO</p><h2>Seu progresso, em um só lugar.</h2><p><strong id="accountProgress">0%</strong> da trilha concluída. Entre para sincronizar entre dispositivos.</p></div>
+        <div class="badge-row" aria-label="Conquistas"><span class="badge" data-badge="1">M1</span><span class="badge" data-badge="2">M2</span><span class="badge" data-badge="3">M3</span><span class="badge" data-badge="4">M4</span><span class="badge" data-badge="5">M5</span><span class="badge" data-badge="6">M6</span></div>
       </section>
 
       <section class="setup" id="preparo">

@@ -14,6 +14,7 @@ export default function CoursePage() {
           <a href="/course/index.html?embedded=1#trilha" target="course-content">Trilha</a>
           <a href="/course/index.html?embedded=1#laboratorio" target="course-content">Laboratório</a>
           <a href="/course/index.html?embedded=1#comandos" target="course-content">Comandos</a>
+          <a href="/course/assessment.html?module=1" target="course-content">Avaliações</a>
         </nav>
 
         <div className="course-account">

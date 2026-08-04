@@ -110,8 +110,8 @@ if (moduleGrid) {
     return `<article class="course-module"><span>MÓDULO ${String(index + 1).padStart(2, '0')}</span><h3>${title}</h3><p>${description}</p><div class="course-lessons">${lessons}</div><div class="course-module-footer"><span>${lessonIds.length} aulas</span><a href="assessment.html?module=${index + 1}">Avaliação</a></div></article>`;
   }).join('');
   moduleGrid.before(overview);
-  moduleGrid.hidden = true;
-  document.querySelector('.filters').hidden = true;
+  moduleGrid.style.display = 'none';
+  document.querySelector('.filters').style.display = 'none';
 }
 
 document.querySelectorAll('.filter').forEach(button => button.addEventListener('click', () => {

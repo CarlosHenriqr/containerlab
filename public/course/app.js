@@ -1,3 +1,7 @@
+if (new URLSearchParams(window.location.search).has("embedded")) {
+  document.body.classList.add("embedded");
+}
+
 const modules = [...document.querySelectorAll('[data-module]')];
 const tasks = [...document.querySelectorAll('[data-task]')];
 const progressText = document.querySelector('#progressText');

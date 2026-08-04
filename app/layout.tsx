@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
+import { ui } from "@clerk/ui";
 import "./globals.css";
+import "./course.css";
 import "./auth.css";
 import "./auth-fix.css";
 
@@ -21,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body>
-        <ClerkProvider>{children}</ClerkProvider>
+        <ClerkProvider ui={ui}>{children}</ClerkProvider>
       </body>
     </html>
   );

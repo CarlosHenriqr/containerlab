@@ -1,1 +1,98 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Aula | Container Lab</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="lesson.css"></head><body><header class="site-header"><a class="brand" href="index.html"><span class="brand-mark">&gt;_</span> container<span>lab</span></a><a class="header-cta" href="index.html#trilha">Voltar para a trilha</a></header><main class="lesson-shell"><aside class="lesson-aside"><a href="index.html#trilha">Trilhas</a><p id="lessonPosition"></p><div class="lesson-status"><span></span><span id="statusText">Ainda nao concluida</span></div></aside><article class="lesson-content"><p class="eyebrow"><span></span> AULA GUIADA</p><h1 id="lessonTitle"></h1><p class="lesson-lead" id="lessonIntro"></p><section class="plain-words"><h2>Antes de comecar</h2><p id="lessonConcept"></p></section><section class="study-guide"><p class="eyebrow"><span></span> IDEIAS IMPORTANTES</p><div id="keyIdeas"></div><div class="practice"><h2>Pratique antes de avancar</h2><p id="practice"></p></div></section><section><div class="step-heading"><p class="eyebrow"><span></span> PASSO A PASSO</p><p>Faca um passo de cada vez. Nao precisa decorar nada.</p></div><ol class="steps" id="steps"></ol></section><section class="success-box"><p class="eyebrow"><span></span> COMO SABER QUE FUNCIONOU</p><p id="lessonSuccess"></p></section><section class="help-box"><h2>Se algo der errado</h2><p id="lessonHelp"></p></section><div class="lesson-actions"><button class="button secondary" id="previous">Aula anterior</button><button class="button primary" id="complete">Marcar como concluida</button><button class="button secondary" id="next">Proxima aula</button></div></article></main><script src="lesson.js"></script></body></html>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula | Container Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="lesson.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark">&gt;_</span> container<span>lab</span></a>
+    <a class="header-cta" href="index.html#trilha">Voltar para a trilha</a>
+  </header>
+  <main class="lesson-shell">
+    <aside class="lesson-aside">
+      <a href="index.html#trilha">Trilhas</a>
+      <p id="lessonPosition"></p>
+      <div class="lesson-status"><span></span><span id="statusText">Ainda não concluída</span></div>
+      <dl class="lesson-quick-links" aria-label="Seções desta aula">
+        <div><dt>01</dt><dd><a href="#laboratorio">Laboratório</a></dd></div>
+        <div><dt>02</dt><dd><a href="#erros">Erros comuns</a></dd></div>
+        <div><dt>03</dt><dd><a href="#referencias">Referências</a></dd></div>
+      </dl>
+    </aside>
+    <article class="lesson-content">
+      <p class="eyebrow"><span></span> AULA GUIADA</p>
+      <div class="lesson-heading">
+        <div>
+          <h1 id="lessonTitle"></h1>
+          <p class="lesson-lead" id="lessonLead"></p>
+        </div>
+        <p class="lesson-duration" id="lessonDuration"></p>
+      </div>
+      <section class="lesson-overview" aria-label="Visão geral">
+        <div><p class="section-kicker">OBJETIVO</p><p id="lessonObjective"></p></div>
+        <div><p class="section-kicker">RESULTADO</p><p id="lessonOutcome"></p></div>
+      </section>
+      <section class="plain-words">
+        <h2>Antes de começar</h2>
+        <p id="lessonConcept"></p>
+      </section>
+      <section class="preflight" aria-labelledby="preflightTitle">
+        <div><p class="section-kicker">ANTES DO LAB</p><h2 id="preflightTitle">Pré-requisitos</h2></div>
+        <ul id="lessonPrerequisites"></ul>
+      </section>
+      <section class="study-guide" aria-labelledby="ideasTitle">
+        <p class="eyebrow"><span></span> IDEIAS IMPORTANTES</p>
+        <h2 id="ideasTitle">O que precisa ficar claro</h2>
+        <div id="keyIdeas"></div>
+      </section>
+      <section class="glossary" aria-labelledby="glossaryTitle">
+        <p class="eyebrow"><span></span> GLOSSÁRIO RÁPIDO</p>
+        <h2 id="glossaryTitle">Termos desta aula</h2>
+        <div id="lessonGlossary"></div>
+      </section>
+      <section class="lab-section" id="laboratorio" aria-labelledby="labTitle">
+        <div class="section-heading"><div><p class="eyebrow"><span></span> LABORATÓRIO GUIADO</p><h2 id="labTitle"></h2></div><p>Execute uma etapa e valide antes de seguir.</p></div>
+        <ol class="steps" id="steps"></ol>
+      </section>
+      <section class="result-box">
+        <div class="status-icon" aria-hidden="true">✓</div>
+        <div><p class="section-kicker">RESULTADO ESPERADO</p><p id="lessonExpected"></p></div>
+      </section>
+      <section class="issues-section" id="erros" aria-labelledby="issuesTitle">
+        <p class="eyebrow"><span></span> DIAGNÓSTICO</p>
+        <h2 id="issuesTitle">Erros comuns</h2>
+        <div id="lessonIssues"></div>
+      </section>
+      <section class="safety-box" aria-labelledby="safetyTitle">
+        <p class="section-kicker">SEGURANÇA</p><h2 id="safetyTitle">Antes de avançar</h2><p id="lessonSafety"></p>
+      </section>
+      <section class="challenge-section" aria-labelledby="challengeTitle">
+        <div><p class="eyebrow"><span></span> DESAFIO</p><h2 id="challengeTitle">Teste seu entendimento</h2><p id="lessonChallenge"></p></div>
+        <div class="checklist"><p class="section-kicker">CHECKLIST</p><ul id="lessonChecklist"></ul></div>
+      </section>
+      <section class="cleanup-section" aria-labelledby="cleanupTitle">
+        <p class="eyebrow"><span></span> LIMPEZA DO AMBIENTE</p><h2 id="cleanupTitle">Finalize sem deixar recursos esquecidos</h2><div id="lessonCleanup"></div>
+      </section>
+      <section class="resources-section" id="referencias" aria-labelledby="resourcesTitle">
+        <p class="eyebrow"><span></span> LEITURA OFICIAL</p>
+        <h2 id="resourcesTitle">Continue na documentação</h2>
+        <div id="lessonResources"></div>
+      </section>
+      <div class="lesson-actions">
+        <button class="button secondary" id="previous">Aula anterior</button>
+        <button class="button primary" id="complete">Marcar como concluída ✓</button>
+        <button class="button secondary" id="next">Próxima aula</button>
+      </div>
+    </article>
+  </main>
+  <script src="lesson-content.js"></script>
+  <script src="lesson.js"></script>
+</body>
+</html>

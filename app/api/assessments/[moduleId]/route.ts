@@ -28,41 +28,41 @@ async function previousModulePassed(userId: string, moduleId: number) {
 export async function GET(_: Request, { params }: { params: Promise<{ moduleId: string }> }) {
   const { userId } = await auth();
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  const module = moduleFrom(await params);
-  if (!module) return NextResponse.json({ error: "Module not found" }, { status: 404 });
-  if (!await previousModulePassed(userId, module.id)) return NextResponse.json({ locked: true, previousModule: module.id - 1 }, { status: 423 });
-  const missing = await missingLessons(userId, module.id);
+  const courseModule = moduleFrom(await params);
+  if (!courseModule) return NextResponse.json({ error: "Module not found" }, { status: 404 });
+  if (!await previousModulePassed(userId, courseModule.id)) return NextResponse.json({ locked: true, previousModule: courseModule.id - 1 }, { status: 423 });
+  const missing = await missingLessons(userId, courseModule.id);
   if (missing.length) return NextResponse.json({ locked: true, missingLessons: missing }, { status: 423 });
-  const [moduleRecord] = await getDb().select({ practiceComplete: moduleStatus.practiceComplete }).from(moduleStatus).where(and(eq(moduleStatus.userId, userId), eq(moduleStatus.moduleId, module.id)));
+  const [moduleRecord] = await getDb().select({ practiceComplete: moduleStatus.practiceComplete }).from(moduleStatus).where(and(eq(moduleStatus.userId, userId), eq(moduleStatus.moduleId, courseModule.id)));
   if (!moduleRecord?.practiceComplete) return NextResponse.json({ locked: true, needsPractice: true }, { status: 423 });
 
   const attempts = await getDb().select({ score: assessmentAttempts.score, createdAt: assessmentAttempts.createdAt })
-    .from(assessmentAttempts).where(and(eq(assessmentAttempts.userId, userId), eq(assessmentAttempts.moduleId, module.id))).orderBy(desc(assessmentAttempts.createdAt));
+    .from(assessmentAttempts).where(and(eq(assessmentAttempts.userId, userId), eq(assessmentAttempts.moduleId, courseModule.id))).orderBy(desc(assessmentAttempts.createdAt));
 
-  return NextResponse.json({ title: module.title, questions: module.questions.map(({ prompt, options }) => ({ prompt, options })), attempts: attempts.slice(0, 10) });
+  return NextResponse.json({ title: courseModule.title, questions: courseModule.questions.map(({ prompt, options }) => ({ prompt, options })), attempts: attempts.slice(0, 10) });
 }
 
 export async function POST(request: Request, { params }: { params: Promise<{ moduleId: string }> }) {
   const { userId } = await auth();
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  const module = moduleFrom(await params);
-  if (!module) return NextResponse.json({ error: "Module not found" }, { status: 404 });
-  if (!await previousModulePassed(userId, module.id)) return NextResponse.json({ locked: true, previousModule: module.id - 1 }, { status: 423 });
-  const missing = await missingLessons(userId, module.id);
+  const courseModule = moduleFrom(await params);
+  if (!courseModule) return NextResponse.json({ error: "Module not found" }, { status: 404 });
+  if (!await previousModulePassed(userId, courseModule.id)) return NextResponse.json({ locked: true, previousModule: courseModule.id - 1 }, { status: 423 });
+  const missing = await missingLessons(userId, courseModule.id);
   if (missing.length) return NextResponse.json({ locked: true, missingLessons: missing }, { status: 423 });
-  const [moduleRecord] = await getDb().select({ practiceComplete: moduleStatus.practiceComplete }).from(moduleStatus).where(and(eq(moduleStatus.userId, userId), eq(moduleStatus.moduleId, module.id)));
+  const [moduleRecord] = await getDb().select({ practiceComplete: moduleStatus.practiceComplete }).from(moduleStatus).where(and(eq(moduleStatus.userId, userId), eq(moduleStatus.moduleId, courseModule.id)));
   if (!moduleRecord?.practiceComplete) return NextResponse.json({ locked: true, needsPractice: true }, { status: 423 });
   const body = await request.json().catch(() => null) as { answers?: unknown } | null;
   const answers = body?.answers;
-  if (!Array.isArray(answers) || answers.length !== module.questions.length || answers.some((answer): answer is number => typeof answer !== "number" || !Number.isInteger(answer) || answer < 0 || answer > 3)) {
+  if (!Array.isArray(answers) || answers.length !== courseModule.questions.length || answers.some((answer): answer is number => typeof answer !== "number" || !Number.isInteger(answer) || answer < 0 || answer > 3)) {
     return NextResponse.json({ error: "Invalid answers" }, { status: 400 });
   }
 
-  const correct = module.questions.reduce((total, question, index) => total + Number(question.answer === answers[index]), 0);
-  const score = Math.round((correct / module.questions.length) * 100);
-  await getDb().insert(assessmentAttempts).values({ id: crypto.randomUUID(), userId, moduleId: module.id, score, answers: JSON.stringify(answers) });
+  const correct = courseModule.questions.reduce((total, question, index) => total + Number(question.answer === answers[index]), 0);
+  const score = Math.round((correct / courseModule.questions.length) * 100);
+  await getDb().insert(assessmentAttempts).values({ id: crypto.randomUUID(), userId, moduleId: courseModule.id, score, answers: JSON.stringify(answers) });
   const now = new Date();
-  await getDb().insert(moduleStatus).values({ userId, moduleId: module.id, bestScore: score, passedAt: score >= 70 ? now : null, updatedAt: now })
+  await getDb().insert(moduleStatus).values({ userId, moduleId: courseModule.id, bestScore: score, passedAt: score >= 70 ? now : null, updatedAt: now })
     .onConflictDoUpdate({ target: [moduleStatus.userId, moduleStatus.moduleId], set: { bestScore: score, passedAt: score >= 70 ? now : null, updatedAt: now } });
-  return NextResponse.json({ score, passed: score >= 70, answers: module.questions.map((question, index) => ({ correct: question.answer, explanation: question.explanation, selected: answers[index] })) });
+  return NextResponse.json({ score, passed: score >= 70, answers: courseModule.questions.map((question, index) => ({ correct: question.answer, explanation: question.explanation, selected: answers[index] })) });
 }

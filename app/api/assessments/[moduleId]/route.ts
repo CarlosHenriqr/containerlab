@@ -2,7 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { and, desc, eq, inArray } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { getDb } from "@/db";
-import { assessmentAttempts, courseProgress } from "@/db/schema";
+import { assessmentAttempts, courseProgress, moduleStatus } from "@/db/schema";
 import { getCourseModule, moduleLessons } from "@/lib/course";
 
 function moduleFrom(params: { moduleId: string }) {
@@ -48,5 +48,8 @@ export async function POST(request: Request, { params }: { params: Promise<{ mod
   const correct = module.questions.reduce((total, question, index) => total + Number(question.answer === answers[index]), 0);
   const score = Math.round((correct / module.questions.length) * 100);
   await getDb().insert(assessmentAttempts).values({ id: crypto.randomUUID(), userId, moduleId: module.id, score, answers: JSON.stringify(answers) });
+  const now = new Date();
+  await getDb().insert(moduleStatus).values({ userId, moduleId: module.id, bestScore: score, passedAt: score >= 70 ? now : null, updatedAt: now })
+    .onConflictDoUpdate({ target: [moduleStatus.userId, moduleStatus.moduleId], set: { bestScore: score, passedAt: score >= 70 ? now : null, updatedAt: now } });
   return NextResponse.json({ score, passed: score >= 70, answers: module.questions.map((question, index) => ({ correct: question.answer, explanation: question.explanation, selected: answers[index] })) });
 }

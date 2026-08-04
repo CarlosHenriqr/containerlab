@@ -18,11 +18,19 @@ async function missingLessons(userId: string, moduleId: number) {
   return required.filter((lessonId) => !done.has(lessonId));
 }
 
+async function previousModulePassed(userId: string, moduleId: number) {
+  if (moduleId === 1) return true;
+  const [previous] = await getDb().select({ passedAt: moduleStatus.passedAt }).from(moduleStatus)
+    .where(and(eq(moduleStatus.userId, userId), eq(moduleStatus.moduleId, moduleId - 1)));
+  return Boolean(previous?.passedAt);
+}
+
 export async function GET(_: Request, { params }: { params: Promise<{ moduleId: string }> }) {
   const { userId } = await auth();
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const module = moduleFrom(await params);
   if (!module) return NextResponse.json({ error: "Module not found" }, { status: 404 });
+  if (!await previousModulePassed(userId, module.id)) return NextResponse.json({ locked: true, previousModule: module.id - 1 }, { status: 423 });
   const missing = await missingLessons(userId, module.id);
   if (missing.length) return NextResponse.json({ locked: true, missingLessons: missing }, { status: 423 });
   const [moduleRecord] = await getDb().select({ practiceComplete: moduleStatus.practiceComplete }).from(moduleStatus).where(and(eq(moduleStatus.userId, userId), eq(moduleStatus.moduleId, module.id)));
@@ -39,6 +47,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ mod
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const module = moduleFrom(await params);
   if (!module) return NextResponse.json({ error: "Module not found" }, { status: 404 });
+  if (!await previousModulePassed(userId, module.id)) return NextResponse.json({ locked: true, previousModule: module.id - 1 }, { status: 423 });
   const missing = await missingLessons(userId, module.id);
   if (missing.length) return NextResponse.json({ locked: true, missingLessons: missing }, { status: 423 });
   const [moduleRecord] = await getDb().select({ practiceComplete: moduleStatus.practiceComplete }).from(moduleStatus).where(and(eq(moduleStatus.userId, userId), eq(moduleStatus.moduleId, module.id)));
